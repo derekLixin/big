@@ -16,7 +16,6 @@ export default {
     margin: 0;
     width:1920px;
     height:1080px;
-    zoom:0.875;
   }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
