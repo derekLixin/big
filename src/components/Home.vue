@@ -1,179 +1,183 @@
 <template>
   <div class="container">
-    <div class="big_head">
-      <div class="big_head_title">吉林油田生产物联网监控指挥中心</div>
-      <!--<div class="big_head_bottom_line"></div>-->
-      <div class="big_head_date">2018.12.14 10: 52: 26</div>
-    </div>
-    <div class="map_box">
-      <div class="sanjiao_l_t"></div>
-      <div class="sanjiao_r_t"></div>
-      <div class="sanjiao_l_b"></div>
-      <div class="sanjiao_r_b"></div>
-      <div class="map_card1">
-        <div class="map_card_title1">设备预警数</div>
-        <div class="map_card_count1">1142</div>
-        <div class="map_card_count2">开井数:10544</div>
-        <div class="map_card_count3">停井数:2158</div>
+    <nav-menu :menuFlag="menuFlag" :showMenu="showMenu" :hideMenu="hideMenu"></nav-menu>
+    <div class="appContainer" @click="hideMenu">
+      <div class="big_head">
+        <div class="big_head_title">吉林油田生产物联网监控指挥中心</div>
+        <!--<div class="big_head_bottom_line"></div>-->
+        <div class="big_head_date">2018.12.14 10: 52: 26</div>
       </div>
-      <div class="map_card2">
-        <div class="map_card_title2">今日电机异常</div>
-        <div class="map_card_num1">102</div>
-        <div class="map_card_num2">154</div>
-        <div class="map_card_num3">189</div>
-      </div>
-      <div class="map_card3">
-        <div class="map_card_title3">电参诊断总数</div>
-        <div class="map_card_sum">5410</div>
-      </div>
-      <div class="map_center_title">吉林各厂井位分布图</div>
-      <div id="myChart" :style="{width: '100%', height: '100%'}"></div>
-    </div>
-    <div class="big_left_chart1">
-      <div class="big_left_chart1_title">
-        各厂开井率
-        <div class="big_heng_line"></div>
-      </div>
-      <div class="big_left_chart1_box">
-        <div id="myChart1" :style="{width: '100%', height: '100%'}"></div>
-      </div>
-    </div>
-    <div class="big_left_chart2">
-      <div class="big_left_chart2_title">
-        各厂电能展示
-      </div>
-      <div class="big_left_chart2_box">
-        <div id="myChart2" :style="{width: '100%', height: '100%'}"></div>
-      </div>
-    </div>
-    <div class="big_right_chart1">
-      <div class="big_right_chart1_title">
-        各厂设备上线率
-        <div class="big_heng_line"></div>
-      </div>
-      <div class="big_right_chart1_title1">
-        吉林油田油井总数<span>15941</span>口
-      </div>
-      <div class="big_right_chart1_tab">
-        <div class="big_right_chart1_tab_l active">安装率</div>
-        <div class="big_right_chart1_tab_c">上线率</div>
-        <div class="big_right_chart1_tab_r">预警</div>
-      </div>
-      <div class="big_right_chart1_progress">
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">新木采油厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:4.7%;"></div>
-          </div>
-          <div class="big_progress_item_count">95.3%</div>
+      <div class="map_box">
+        <div class="sanjiao_l_t"></div>
+        <div class="sanjiao_r_t"></div>
+        <div class="sanjiao_l_b"></div>
+        <div class="sanjiao_r_b"></div>
+        <div class="map_card1">
+          <div class="map_card_title1">设备预警数</div>
+          <div class="map_card_count1">1142</div>
+          <div class="map_card_count2">开井数:10544</div>
+          <div class="map_card_count3">停井数:2158</div>
         </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">红岗采油厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:12.1%;"></div>
-          </div>
-          <div class="big_progress_item_count">87.9%</div>
+        <div class="map_card2">
+          <div class="map_card_title2">今日电机异常</div>
+          <div class="map_card_num1">102</div>
+          <div class="map_card_num2">154</div>
+          <div class="map_card_num3">189</div>
         </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">乾安采油厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:24.9%;"></div>
-          </div>
-          <div class="big_progress_item_count">75.1%</div>
+        <div class="map_card3">
+          <div class="map_card_title3">电参诊断总数</div>
+          <div class="map_card_sum">5410</div>
         </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">新立采油厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:13.5%;"></div>
-          </div>
-          <div class="big_progress_item_count">86.5%</div>
+        <div class="map_center_title">吉林各厂井位分布图</div>
+        <div id="myChart" :style="{width: '100%', height: '100%'}"></div>
+      </div>
+      <div class="big_left_chart1">
+        <div class="big_left_chart1_title">
+          各厂开井率
+          <div class="big_heng_line"></div>
         </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">英台采油厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:11.2%;"></div>
-          </div>
-          <div class="big_progress_item_count">88.8%</div>
-        </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">扶余采油厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:34。8%;"></div>
-          </div>
-          <div class="big_progress_item_count">65.2%</div>
-        </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">长春采油厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:4.5%;"></div>
-          </div>
-          <div class="big_progress_item_count">95.5%</div>
-        </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">新民采油厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:8%;"></div>
-          </div>
-          <div class="big_progress_item_count">92.0%</div>
-        </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">二氧化碳</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:5.5%;"></div>
-          </div>
-          <div class="big_progress_item_count">94.5%</div>
-        </div>
-        <div class="big_progress_item">
-          <div class="big_progress_item_label">松原采气厂</div>
-          <div class="big_progress_item_bg">
-            <div class="big_progress_item_gray" style="width:13.6%;"></div>
-          </div>
-          <div class="big_progress_item_count">86.4%</div>
+        <div class="big_left_chart1_box">
+          <div id="myChart1" :style="{width: '100%', height: '100%'}"></div>
         </div>
       </div>
-      <!--<div class="big_right_chart1_box">-->
+      <div class="big_left_chart2">
+        <div class="big_left_chart2_title">
+          各厂电能展示
+        </div>
+        <div class="big_left_chart2_box">
+          <div id="myChart2" :style="{width: '100%', height: '100%'}"></div>
+        </div>
+      </div>
+      <div class="big_right_chart1">
+        <div class="big_right_chart1_title">
+          各厂设备上线率
+          <div class="big_heng_line"></div>
+        </div>
+        <div class="big_right_chart1_title1">
+          吉林油田油井总数<span>15941</span>口
+        </div>
+        <div class="big_right_chart1_tab">
+          <div class="big_right_chart1_tab_l active">安装率</div>
+          <div class="big_right_chart1_tab_c">上线率</div>
+          <div class="big_right_chart1_tab_r">预警</div>
+        </div>
+        <div class="big_right_chart1_progress">
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">新木采油厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:4.7%;"></div>
+            </div>
+            <div class="big_progress_item_count">95.3%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">红岗采油厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:12.1%;"></div>
+            </div>
+            <div class="big_progress_item_count">87.9%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">乾安采油厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:24.9%;"></div>
+            </div>
+            <div class="big_progress_item_count">75.1%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">新立采油厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:13.5%;"></div>
+            </div>
+            <div class="big_progress_item_count">86.5%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">英台采油厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:11.2%;"></div>
+            </div>
+            <div class="big_progress_item_count">88.8%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">扶余采油厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:34。8%;"></div>
+            </div>
+            <div class="big_progress_item_count">65.2%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">长春采油厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:4.5%;"></div>
+            </div>
+            <div class="big_progress_item_count">95.5%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">新民采油厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:8%;"></div>
+            </div>
+            <div class="big_progress_item_count">92.0%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">二氧化碳</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:5.5%;"></div>
+            </div>
+            <div class="big_progress_item_count">94.5%</div>
+          </div>
+          <div class="big_progress_item">
+            <div class="big_progress_item_label">松原采气厂</div>
+            <div class="big_progress_item_bg">
+              <div class="big_progress_item_gray" style="width:13.6%;"></div>
+            </div>
+            <div class="big_progress_item_count">86.4%</div>
+          </div>
+        </div>
+        <!--<div class="big_right_chart1_box">-->
         <!--<div id="myChart3" :style="{width: '100%', height: '100%'}"></div>-->
-      <!--</div>-->
-    </div>
-    <div class="big_right_chart2">
-      <div class="big_right_chart2_title">
-        采油方式
+        <!--</div>-->
       </div>
-      <div class="big_right_chart2_box">
-        <div id="myChart4" :style="{width: '100%', height: '100%'}"></div>
+      <div class="big_right_chart2">
+        <div class="big_right_chart2_title">
+          采油方式
+        </div>
+        <div class="big_right_chart2_box">
+          <div id="myChart4" :style="{width: '100%', height: '100%'}"></div>
+        </div>
       </div>
-    </div>
-    <div class="big_bottom_left">
-      <div class="big_bottom_left_title">
-        日度电机异常
-        <div class="big_shu_line"></div>
+      <div class="big_bottom_left">
+        <div class="big_bottom_left_title">
+          日度电机异常
+          <div class="big_shu_line"></div>
+        </div>
+        <div class="big_bottom_left_box">
+          <div id="myChart5" :style="{width: '100%', height: '100%'}"></div>
+        </div>
       </div>
-      <div class="big_bottom_left_box">
-        <div id="myChart5" :style="{width: '100%', height: '100%'}"></div>
+      <div class="big_bottom_center">
+        <div class="big_bottom_left_title">
+          井场视频预警
+          <div class="big_shu_line"></div>
+        </div>
+        <div class="big_bottom_center_box">
+          <div id="myChart6" :style="{width: '100%', height: '100%'}"></div>
+        </div>
       </div>
-    </div>
-    <div class="big_bottom_center">
-      <div class="big_bottom_left_title">
-        井场视频预警
-        <div class="big_shu_line"></div>
-      </div>
-      <div class="big_bottom_center_box">
-        <div id="myChart6" :style="{width: '100%', height: '100%'}"></div>
-      </div>
-    </div>
-    <div class="big_bottom_right">
-      <div class="big_bottom_left_title">
-        电参诊断故障井
-        <div class="big_shu_line"></div>
-      </div>
-      <div class="big_bottom_right_box">
-        <div id="myChart7" :style="{width: '100%', height: '100%'}"></div>
+      <div class="big_bottom_right">
+        <div class="big_bottom_left_title">
+          电参诊断故障井
+          <div class="big_shu_line"></div>
+        </div>
+        <div class="big_bottom_right_box">
+          <div id="myChart7" :style="{width: '100%', height: '100%'}"></div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import NavMenu from '@/components/NavMenu'
 import jilin from '../data/jilin.json'
 // import shandong from '../data/shandong.json'
 
@@ -198,6 +202,7 @@ export default {
   name: 'Home',
   data () {
     return {
+      menuFlag: '0',
       myChart: undefined,
       myChart1: undefined,
       myChart2: undefined,
@@ -209,6 +214,7 @@ export default {
     }
   },
   components: {
+    NavMenu
   },
   mounted () {
     this.initChart()
@@ -222,6 +228,16 @@ export default {
     this.drawMap7()
   },
   methods: {
+    hideMenu () {
+      if (this.menuFlag === '1') {
+        this.menuFlag = '0'
+      }
+    },
+    showMenu () {
+      if (this.menuFlag === '0') {
+        this.menuFlag = '1'
+      }
+    },
     initChart () {
       // 基于准备好的dom，初始化echarts实例
       this.myChart = echarts.init(document.getElementById('myChart'))
@@ -1229,15 +1245,17 @@ export default {
     height: 255px;
     border: 1px solid rgba(255,255,255,0.5);
     background:rgba(0,0,0,0.4);
+    overflow: hidden;
   }
   .big_bottom_center{
-     position:absolute;
-     left: 890px;
-     top: 815px;
-     width: 425px;
-     height: 255px;
-    border: 1px solid rgba(255,255,255,0.5);
-    background:rgba(0,0,0,0.4);
+      position:absolute;
+      left: 890px;
+      top: 815px;
+      width: 425px;
+      height: 255px;
+      border: 1px solid rgba(255,255,255,0.5);
+      background:rgba(0,0,0,0.4);
+      overflow: hidden;
    }
   .big_bottom_right{
     position:absolute;
@@ -1247,6 +1265,7 @@ export default {
     height: 255px;
     border: 1px solid rgba(255,255,255,0.5);
     background:rgba(0,0,0,0.4);
+    overflow: hidden;
   }
   .big_left_chart1_title{
     position: absolute;

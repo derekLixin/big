@@ -6,7 +6,15 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+    }
+  },
+  components: {
+  },
+  methods: {
+  }
 }
 </script>
 
@@ -16,6 +24,14 @@ export default {
     margin: 0;
     width:1920px;
     height:1080px;
+    position:relative;
+  }
+  .appContainer{
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:0;
+    top:0;
   }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;

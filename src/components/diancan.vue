@@ -2,7 +2,68 @@
   <div class="container">
     <div class="big_head">
       <div class="big_head_title">电参诊断统计</div>
-      <div class="big_head_bottom_line"></div>
+    </div>
+    <div class="right_menu">
+      <div class="right_menu_item" @click="go2Page('/')">首页</div>
+      <div class="right_menu_item active" >日度</div>
+      <div class="right_menu_item">月度</div>
+      <div class="right_menu_item">季度</div>
+    </div>
+    <div class="table_box">
+      <div class="table_date">2019.05.13 11:11:11</div>
+      <div class="table_box_body">
+        <div class="table_conditions">
+          <div class="search_label">
+            采油厂
+          </div>
+          <el-input style="width:220px;margin-right:35px;" v-model="cyc" placeholder="请输入采油厂名称"></el-input>
+          <div class="search_label">
+            采油矿
+          </div>
+          <el-input style="width:220px;margin-right:35px;" v-model="cyk" placeholder="请输入采油矿名称"></el-input>
+          <div class="search_label">
+            日期
+          </div>
+          <el-date-picker
+            v-model="rq"
+            type="date"
+            style="width:220px;margin-right:50px;"
+            placeholder="选择日期">
+          </el-date-picker>
+          <div class="search_btn" @click="searchData">查询</div>
+          <div class="search_btn">图形查询</div>
+        </div>
+        <div class="table_list">
+          <div class="table_head">
+            <div class="table_col" :style="'width:'+wids[0]+'%;'">井号</div>
+            <div class="table_col" :style="'width:'+wids[1]+'%;'">诊断时间</div>
+            <div class="table_col" :style="'width:'+wids[2]+'%;'">诊断原因</div>
+            <div class="table_col" :style="'width:'+wids[3]+'%;'">处理时间</div>
+            <div class="table_col" :style="'width:'+wids[4]+'%;'">处理情况</div>
+            <div class="table_col" :style="'width:'+wids[5]+'%;'">处理人</div>
+            <div class="table_col" :style="'width:'+wids[6]+'%;'">备注</div>
+          </div>
+          <div class="table_item" v-for="(item, index) in listData" :key="index">
+            <div class="table_col" :style="'width:'+wids[0]+'%;'">{{item.jh}}</div>
+            <div class="table_col" :style="'width:'+wids[1]+'%;'">{{item.zdsj}}</div>
+            <div class="table_col" :style="'width:'+wids[2]+'%;'">{{item.zdyy}}</div>
+            <div class="table_col" :style="'width:'+wids[3]+'%;'">{{item.clsj}}</div>
+            <div class="table_col" :style="'width:'+wids[4]+'%;'">{{item.clqk}}</div>
+            <div class="table_col" :style="'width:'+wids[5]+'%;'">{{item.clr}}</div>
+            <div class="table_col" :style="'width:'+wids[6]+'%;'">{{item.bz}}</div>
+          </div>
+          <div class="table_page">
+            <el-pagination
+              @current-change="handleCurrentChange"
+              :current-page.sync="currentPage"
+              :page-sizes="[11]"
+              :page-size="pageSize"
+              layout="->, prev, pager, next, jumper, sizes, total"
+              :total="total">
+            </el-pagination>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -12,6 +73,55 @@ export default {
   name: 'diancan',
   data () {
     return {
+      rq: '',
+      cyk: '',
+      cyc: '',
+      wids: [10, 20, 20, 20, 10, 10, 10],
+      pageSize: 11,
+      total: 24,
+      currentPage: 1,
+      allData: {
+        total: 24,
+        rows: [
+          {jh: '老1-121', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落1', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-122', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落2', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-123', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落3', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-124', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落4', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-125', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落5', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-126', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落6', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-127', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落7', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-128', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落8', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-129', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落9', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-130', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落10', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-131', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落11', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-132', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落12', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-133', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落13', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-134', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落14', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-135', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落15', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-136', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落16', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-137', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落17', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-138', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落18', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-139', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落19', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-140', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落20', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-141', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落21', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-142', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落22', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-143', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落23', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+          {jh: '老1-144', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落24', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'}
+        ]
+      },
+      listData: [
+        {jh: '老1-121', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落1', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-122', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落2', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-123', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落3', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-124', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落4', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-125', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落5', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-126', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落6', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-127', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落7', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-128', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落8', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-129', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落9', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-130', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落10', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'},
+        {jh: '老1-131', zdsj: '2018.11.11 22:22:22', zdyy: '抽油杆断落11', clsj: '2018.11.12 09:09:00', clqk: '待作业', clr: '林燕兰', bz: '备注'}
+      ]
     }
   },
   components: {
@@ -19,6 +129,19 @@ export default {
   mounted () {
   },
   methods: {
+    go2Page (link) {
+      this.$router.push({
+        path: link
+      })
+    },
+    handleCurrentChange (page) {
+      console.log(page)
+      this.currentPage = page
+      this.listData = this.allData.rows.slice((page - 1) * this.pageSize, page * this.pageSize)
+    },
+    searchData () {
+      this.handleCurrentChange(1)
+    }
   }
 }
 </script>
@@ -27,7 +150,7 @@ export default {
   .container{
     width:100%;
     height:100%;
-    background-image: url('~@/../static/images/big_bg.png');
+    background-image: url('~@/../static/images/table_bg.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size:100% 100%;
@@ -45,16 +168,177 @@ export default {
     text-align: center;
     color:rgba(220,250,250,1);
   }
-  .big_head_bottom_line{
-    width:1920px;
-    height:144px;
+  .right_menu{
+    width: 90px;
     position:absolute;
-    left:50%;
-    margin-left:-960px;
-    bottom:-44px;
-    background-image: url('~@/../static/images/big_head_line.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size:100% 100%;
+    right:0;
+    top:170px;
+  }
+  .right_menu_item{
+    color:rgba(35,205,253,1);
+    border:1px solid rgba(35,205,253,1);
+    height:44px;
+    line-height: 44px;
+    text-align: center;
+    fonts-size:18px;
+    margin-bottom:10px;
+    position:relative;
+    border-right:none;
+    cursor: pointer;
+    background:rgba(35,205,253,0.1);
+  }
+  .right_menu_item:hover,.right_menu_item.active{
+    box-shadow: 0 0 10px rgba(35,205,253,0.5);
+    color:#fff;
+  }
+  .table_box{
+    position:absolute;
+    left: 100px;
+    right: 100px;
+    bottom: 80px;
+    top: 120px;
+    padding-top:70px;
+    padding-left:90px;
+    padding-right:90px;
+    padding-bottom:40px;
+  }
+  .table_date{
+    position:absolute;
+    top:0;
+    right:40px;
+    height:46px;
+    line-height: 46px;
+    color:rgba(35,205,253,1);
+    font-size:16px;
+  }
+  .table_box_body{
+    position:relative;
+    height: 100%;
+  }
+  .table_conditions{
+    height:44px;
+    line-height: 44px;
+    font-size:18px;
+    position:absolute;
+    top:0px;
+  }
+  .search_label{
+    color:rgba(35,205,253,1);
+    display: inline-block;
+    padding-right:10px;
+  }
+  .search_btn{
+    display: inline-block;
+    width:140px;
+    text-align: center;
+    color:#000;
+    background:rgba(35,205,253,1);
+    margin-right:50px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .table_list{
+    position:absolute;
+    top:74px;
+    bottom:0;
+    left:0;
+    right:0;
+    height: auto;
+    width: auto;
+  }
+  .table_head{
+    height:53px;
+    line-height: 53px;
+    position: relative;
+    border:1px solid rgba(35,205,253,1);
+    background:rgba(35,205,253,0.1);
+    color:rgba(35,205,253,1);
+    text-align: center;
+  }
+  .table_item{
+    height:53px;
+    line-height: 53px;
+    border-bottom:1px solid rgba(35,205,253,1);
+    text-align: center;
+    color:rgba(35,205,235,1);
+  }
+  .table_item:hover{
+    color:#fff;
+  }
+  .table_page{
+    height:48px;
+    line-height: 48px;
+  }
+  .table_col{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    height:53px;
+    float:left;
+  }
+</style>
+<style>
+  .table_conditions .el-input input{
+    background-color:rgba(25,205,253,0.1)!important;
+    border:1px solid rgba(25,205,253,1)!important;
+    color:#fff;
+    border-radius: 2px;
+  }
+  .table_page button,
+  .table_page .el-pagination button:disabled{
+    background: none;
+    font-size:18px;
+    color:rgba(255,255,255,0.5);
+  }
+  .table_page .el-pagination .btn-next,
+  .table_page .el-pagination .btn-prev{
+    background: none;
+    color: rgba(25,205,253,1);
+  }
+  .table_page .table_page button, .table_page .el-pagination button:disabled{
+    line-height: 48px;
+  }
+  .table_page .el-pagination button,
+  .table_page .el-pagination span:not([class*=suffix]){
+    height: 48px;
+    line-height: 48px;
+    font-size:18px;
+  }
+  .table_page .el-pagination__editor{
+    margin:0 10px;
+  }
+  .table_page .el-pagination__jump{
+    color: rgba(25,205,253,1);
+    margin:0 24px;
+  }
+  .table_page .el-select .el-input .el-select__caret{
+    color: rgba(25,205,235,1);
+  }
+  .table_page .el-select:hover .el-input__inner{
+    border:1px solid rgba(25,205,235,1);
+  }
+  .table_page .el-input__inner{
+    background:rgba(25,205,235,0.1);
+    color:rgba(25,205,235,1);
+    border:1px solid rgba(25,205,235,1);
+  }
+  .table_page .el-pagination{
+    color:rgba(25,205,235,1);
+  }
+  .table_page .el-pager li{
+    font-size:18px;
+    height:48px;
+    line-height: 48px;
+    padding:0 14px;
+    background: none;
+  }
+  .table_page .el-pager li.active{
+    color:#fff;
+  }
+  .table_page .el-pagination__total{
+    color:rgba(25,205,235,1);
+  }
+  .table_page .el-pagination__sizes .el-input .el-input__inner{
+    font-size:16px;
   }
 </style>
