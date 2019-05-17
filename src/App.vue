@@ -25,6 +25,7 @@ export default {
     width:1920px;
     height:1080px;
     position:relative;
+    overflow:hidden;
   }
   .appContainer{
     position:absolute;

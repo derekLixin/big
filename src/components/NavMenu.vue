@@ -10,7 +10,7 @@
       <div class="menu_item">
         漏油报警统计
       </div>
-      <div class="menu_item">
+      <div class="menu_item" @click="go2Page('/shipin')">
         监控指挥中心
       </div>
       <div class="menu_item" @click="go2Page('/diancan')">
