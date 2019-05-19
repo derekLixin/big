@@ -4,23 +4,29 @@
       <div class="menu_item" @click="go2Page('/')">
         首页
       </div>
-      <div class="menu_item">
-        单井报警
-      </div>
-      <div class="menu_item">
-        漏油报警统计
-      </div>
       <div class="menu_item" @click="go2Page('/shipin')">
-        监控指挥中心
+        井场视频监控
+      </div>
+      <div class="menu_item" @click="go2Page('/yujing')">
+        预警确认
+      </div>
+      <div class="menu_item" @click="go2Page('/shipinGrid')">
+        视频监控报警信息
+      </div>
+      <div class="menu_item" @click="go2Page('/danjingJiankong')">
+        单井实时监控
+      </div>
+      <div class="menu_item" @click="go2Page('/danjingBaojing')">
+        单井报警记录
+      </div>
+      <div class="menu_item" @click="go2Page('/louyou')">
+        漏油报警统计
       </div>
       <div class="menu_item" @click="go2Page('/diancan')">
         电参诊断统计
       </div>
-      <div class="menu_item">
-        电工图诊断
-      </div>
-      <div class="menu_item">
-        其他
+      <div class="menu_item" @click="go2Page('/diangongtu')">
+        电工图诊断记录
       </div>
     </div>
     <div class="menu_btn" @click="showMenuSelf" v-if="menuFlag === '0'"></div>

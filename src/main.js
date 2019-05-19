@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import VideoJs from 'video'
+
 // 引入echarts
 // import echarts from 'echarts'
 // Vue.prototype.$echarts = echarts

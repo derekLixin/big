@@ -4,9 +4,99 @@
       <div class="big_head_title">井场视频监控</div>
     </div>
     <div class="shipin_box">
-      <div class="shipin_left"></div>
-      <div class="shipin_right"></div>
-      <div class="shipin_bottom"></div>
+      <div class="shipin_left">
+        <el-row>
+          <el-col :span="6" class="shipin_item">
+          </el-col>
+          <el-col :span="6" class="shipin_item">
+          </el-col>
+          <el-col :span="6" class="shipin_item">
+          </el-col>
+          <el-col :span="6" class="shipin_item">
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-row>
+              <el-col :span="24" class="shipin_item">
+              </el-col>
+              <el-col :span="24" class="shipin_item">
+              </el-col>
+              <el-col :span="24" class="shipin_item">
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :span="18" class="shipin_item1">
+          </el-col>
+        </el-row>
+      </div>
+      <div class="shipin_right">
+        <div class="shipin_right_condition">
+          <div class="shipin_right_label">热点视频选择</div>
+          <div class="shipin_right_select">
+            <el-select v-model="videoSelect" placeholder="请选择">
+              <el-option
+                v-for="item in videos"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="shipin_info_list">
+          <div class="shipin_info_item head_tb">
+            <div class="shipin_info_tip">风险提示</div>
+            <div class="shipin_info_count">总数</div>
+            <div class="shipin_info_status">状态</div>
+          </div>
+          <div class="shipin_info_item">
+            <div class="shipin_info_tip">井场漏油</div>
+            <div class="shipin_info_count">21</div>
+            <div class="shipin_info_status">22</div>
+          </div>
+          <div class="shipin_info_item">
+            <div class="shipin_info_tip">井场漏油</div>
+            <div class="shipin_info_count">21</div>
+            <div class="shipin_info_status">22</div>
+          </div>
+          <div class="shipin_info_item">
+            <div class="shipin_info_tip">井场漏油</div>
+            <div class="shipin_info_count">21</div>
+            <div class="shipin_info_status">22</div>
+          </div>
+          <div class="shipin_info_item">
+            <div class="shipin_info_tip">井场漏油</div>
+            <div class="shipin_info_count">21</div>
+            <div class="shipin_info_status">22</div>
+          </div>
+          <div class="shipin_info_item">
+            <div class="shipin_info_tip">井场漏油</div>
+            <div class="shipin_info_count">21</div>
+            <div class="shipin_info_status">22</div>
+          </div>
+          <div class="shipin_info_item">
+            <div class="shipin_info_tip">井场漏油</div>
+            <div class="shipin_info_count">21</div>
+            <div class="shipin_info_status">22</div>
+          </div>
+        </div>
+      </div>
+      <div class="shipin_bottom">
+        <div class="table_page">
+          <el-pagination
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage"
+            :page-size="pageSize"
+            layout="->, prev, pager, next, jumper, total"
+            :total="total">
+          </el-pagination>
+        </div>
+      </div>
+    </div>
+    <div class="right_menu">
+      <div class="right_menu_item" @click="go2Page('/')">首页</div>
+      <div class="right_menu_item active" >预警列表</div>
     </div>
   </div>
 </template>
@@ -16,6 +106,24 @@ export default {
   name: 'shipin',
   data () {
     return {
+      listData: [],
+      videoSelect: '',
+      videos: [{
+        value: '选项1',
+        label: '视频1'
+      }, {
+        value: '选项2',
+        label: '视频2'
+      }, {
+        value: '选项3',
+        label: '视频3'
+      }, {
+        value: '选项4',
+        label: '视频4'
+      }],
+      pageSize: 11,
+      total: 24,
+      currentPage: 1
     }
   },
   components: {
@@ -23,6 +131,16 @@ export default {
   mounted () {
   },
   methods: {
+    go2Page (link) {
+      this.$router.push({
+        path: link
+      })
+    },
+    handleCurrentChange (page) {
+      console.log(page)
+      this.currentPage = page
+      this.listData = this.allData.rows.slice((page - 1) * this.pageSize, page * this.pageSize)
+    }
   }
 }
 </script>
@@ -34,7 +152,7 @@ export default {
     background-image: url('~@/../static/images/big_bg2.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size:100% 100%;
+    background-size:1920px 1080px;
     background-color: rgba(10,2,24,1);
     position:relative;
   }
@@ -65,30 +183,104 @@ export default {
     position:absolute;
     left: 100px;
     right: 100px;
-    bottom: 80px;
+    bottom: 70px;
     top: 130px;
     padding-bottom:40px;
-    background: #fff;
   }
   .shipin_left{
     position:absolute;
     left:0;
     top:0;
-    width: 1000px;
-    bottom:40px;
+    width: 1120px;
+    height:840px;
   }
   .shipin_right{
     position:absolute;
-    left:1000px;
+    left:1200px;
     top:0;
-    right:0;
-    bottom:40px;
+    right:20px;
+    bottom:0px;
   }
   .shipin_bottom{
     position:absolute;
     left:0;
+    width:1120px;
     right:0;
     bottom:0;
     height: 40px;
   }
+  .shipin_item{
+    background:rgba(255,255,255,0.2);
+    height:210px;
+    width:280px;
+    border:1px solid #ccc;
+    margin-right:-1px;
+    margin-top:-1px;
+  }
+  .shipin_item1{
+    background:rgba(255,255,255,0.2);
+    height:628px;
+    width:838px;
+    border:1px solid #ccc;
+    margin-left:-1px;
+    margin-top:-1px;
+  }
+  .shipin_right_label{
+    line-height:40px;
+    color:#fff;
+    font-size:18px;
+  }
+  .shipin_info_list{
+    position:relative;
+    padding-top:20px;
+  }
+  .shipin_info_item{
+    height:40px;
+    color:#fff;
+    font-size:16px;
+    line-height:40px;
+    border:1px solid #006699;
+    text-align:center;
+    margin-top:-1px;
+    position:relative;
+    z-index:1;
+  }
+  .shipin_info_item.head_tb{
+    background:#006699;
+    border:1px solid #ccc;
+    z-index:2;
+  }
+  .shipin_info_tip{
+    position:absolute;
+    left:0;
+    top:0;
+    width:218px;
+    border-right:1px solid #006699;
+    height:40px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  .shipin_info_count{
+    position:absolute;
+    left:218px;
+    top:0;
+    width:150px;
+    border-right:1px solid #006699;
+    height:40px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  .shipin_info_status{
+    position:absolute;
+    left:368px;
+    right:0px;
+    top:0;
+    height:40px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+
 </style>
