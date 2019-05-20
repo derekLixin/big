@@ -100,7 +100,7 @@
           <div class="big_progress_item">
             <div class="big_progress_item_label">扶余采油厂</div>
             <div class="big_progress_item_bg">
-              <div class="big_progress_item_gray" style="width:34。8%;"></div>
+              <div class="big_progress_item_gray" style="width:34.8%;"></div>
             </div>
             <div class="big_progress_item_count">65.2%</div>
           </div>

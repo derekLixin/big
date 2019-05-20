@@ -98,46 +98,46 @@
 </template>
 
 <script>
-  export default {
-    name: 'diancan',
-    data () {
-      return {
-        rq: '',
-        cyc: '',
-        cyk: '',
-        jh: '',
-        wids: [10, 20, 15, 10, 10, 15, 10, 10],
-        pageSize: 11,
+export default {
+  name: 'diancan',
+  data () {
+    return {
+      rq: '',
+      cyc: '',
+      cyk: '',
+      jh: '',
+      wids: [10, 20, 15, 10, 10, 15, 10, 10],
+      pageSize: 11,
+      total: 24,
+      currentPage: 1,
+      allData: {
         total: 24,
-        currentPage: 1,
-        allData: {
-          total: 24,
-          rows: []
-        },
-        listData: []
-      }
-    },
-    components: {
-    },
-    mounted () {
-      this.searchData()
-    },
-    methods: {
-      go2Page (link) {
-        this.$router.push({
-          path: link
-        })
+        rows: []
       },
-      handleCurrentChange (page) {
-        console.log(page)
-        this.currentPage = page
-        this.listData = this.allData.rows.slice((page - 1) * this.pageSize, page * this.pageSize)
-      },
-      searchData () {
-        this.handleCurrentChange(1)
-      }
+      listData: []
+    }
+  },
+  components: {
+  },
+  mounted () {
+    this.searchData()
+  },
+  methods: {
+    go2Page (link) {
+      this.$router.push({
+        path: link
+      })
+    },
+    handleCurrentChange (page) {
+      console.log(page)
+      this.currentPage = page
+      this.listData = this.allData.rows.slice((page - 1) * this.pageSize, page * this.pageSize)
+    },
+    searchData () {
+      this.handleCurrentChange(1)
     }
   }
+}
 </script>
 
 <style scoped>

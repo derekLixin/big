@@ -85,72 +85,72 @@
 </template>
 
 <script>
-  export default {
-    name: 'diancan',
-    data () {
-      return {
-        rq: '',
-        rq2: '',
-        wt: '',
-        clcs: '',
-        clr: '',
-        wids: [10, 20, 15, 10, 10, 15, 10, 10],
-        pageSize: 11,
+export default {
+  name: 'diancan',
+  data () {
+    return {
+      rq: '',
+      rq2: '',
+      wt: '',
+      clcs: '',
+      clr: '',
+      wids: [10, 20, 15, 10, 10, 15, 10, 10],
+      pageSize: 11,
+      total: 24,
+      currentPage: 1,
+      allData: {
         total: 24,
-        currentPage: 1,
-        allData: {
-          total: 24,
-          rows: [
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '1'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '2'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '3'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '4'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '5'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '6'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '7'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '8'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '9'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '10'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '11'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '12'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '13'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '14'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '15'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '16'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '17'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '18'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '19'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '20'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '21'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '22'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '23'},
-            {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '24'}
-          ]
-        },
-        listData: []
-      }
-    },
-    components: {
-    },
-    mounted () {
-      this.searchData()
-    },
-    methods: {
-      go2Page (link) {
-        this.$router.push({
-          path: link
-        })
+        rows: [
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '1'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '2'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '3'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '4'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '5'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '6'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '7'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '8'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '9'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '10'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '11'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '12'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '13'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '14'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '15'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '16'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '17'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '18'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '19'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '20'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '21'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '22'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '23'},
+          {jc: 'wj87-9', qrwt: '动物闯入', bjsj: '2019.11.11 08:22:22', clcs: '待处理', clr: '张志龙', clsj: '2019.11.11 22:22:22', bz: '24'}
+        ]
       },
-      handleCurrentChange (page) {
-        console.log(page)
-        this.currentPage = page
-        this.listData = this.allData.rows.slice((page - 1) * this.pageSize, page * this.pageSize)
-      },
-      searchData () {
-        this.handleCurrentChange(1)
-      }
+      listData: []
+    }
+  },
+  components: {
+  },
+  mounted () {
+    this.searchData()
+  },
+  methods: {
+    go2Page (link) {
+      this.$router.push({
+        path: link
+      })
+    },
+    handleCurrentChange (page) {
+      console.log(page)
+      this.currentPage = page
+      this.listData = this.allData.rows.slice((page - 1) * this.pageSize, page * this.pageSize)
+    },
+    searchData () {
+      this.handleCurrentChange(1)
     }
   }
+}
 </script>
 
 <style scoped>

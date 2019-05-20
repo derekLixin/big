@@ -141,178 +141,178 @@
 </template>
 
 <script>
-  let echarts = require('echarts/lib/echarts')
+let echarts = require('echarts/lib/echarts')
 
-  // require('echarts/lib/chart/map')
-  require('echarts/lib/chart/scatter')
-  require('echarts/lib/chart/line')
+// require('echarts/lib/chart/map')
+require('echarts/lib/chart/scatter')
+require('echarts/lib/chart/line')
 
-  require('echarts/lib/component/title')
-  require('echarts/lib/component/tooltip')
-  require('echarts/lib/component/grid')
-  require('echarts/lib/component/legend')
+require('echarts/lib/component/title')
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/grid')
+require('echarts/lib/component/legend')
 
-  export default {
-    name: 'diancan',
-    data () {
-      return {
-        myChart: undefined,
-        rq: '',
-        cyc: '',
-        cyk: '',
-        jh: '',
-        wids: [10, 20, 15, 10, 10, 15, 10, 10],
-        pageSize: 11,
+export default {
+  name: 'diancan',
+  data () {
+    return {
+      myChart: undefined,
+      rq: '',
+      cyc: '',
+      cyk: '',
+      jh: '',
+      wids: [10, 20, 15, 10, 10, 15, 10, 10],
+      pageSize: 11,
+      total: 24,
+      currentPage: 1,
+      allData: {
         total: 24,
-        currentPage: 1,
-        allData: {
-          total: 24,
-          rows: []
-        },
-        listData: []
-      }
+        rows: []
+      },
+      listData: []
+    }
+  },
+  components: {
+  },
+  mounted () {
+    this.searchData()
+    this.initChart()
+    this.drawMap()
+  },
+  methods: {
+    go2Page (link) {
+      this.$router.push({
+        path: link
+      })
     },
-    components: {
+    handleCurrentChange (page) {
+      console.log(page)
+      this.currentPage = page
+      this.listData = this.allData.rows.slice((page - 1) * this.pageSize, page * this.pageSize)
     },
-    mounted () {
-      this.searchData()
-      this.initChart()
-      this.drawMap()
+    searchData () {
+      this.handleCurrentChange(1)
     },
-    methods: {
-      go2Page (link) {
-        this.$router.push({
-          path: link
-        })
-      },
-      handleCurrentChange (page) {
-        console.log(page)
-        this.currentPage = page
-        this.listData = this.allData.rows.slice((page - 1) * this.pageSize, page * this.pageSize)
-      },
-      searchData () {
-        this.handleCurrentChange(1)
-      },
-      initChart () {
-        // 基于准备好的dom，初始化echarts实例
-        this.myChart = echarts.init(document.getElementById('myChart'))
-      },
-      drawMap () {
-        const option = {
-          legend: {
-            // orient: 'vertical',
-            // right: 0,
-            top: 20,
-            itemWidth: 40,
-            textStyle: {
-              color: '#fff'
-            },
-            data: [
-              {name: 'a项电压异常', icon: 'rect'},
-              {name: 'b项电压异常', icon: 'rect'},
-              {name: 'c项电压异常', icon: 'rect'}
-            ]
+    initChart () {
+      // 基于准备好的dom，初始化echarts实例
+      this.myChart = echarts.init(document.getElementById('myChart'))
+    },
+    drawMap () {
+      const option = {
+        legend: {
+          // orient: 'vertical',
+          // right: 0,
+          top: 20,
+          itemWidth: 40,
+          textStyle: {
+            color: '#fff'
           },
-          dataset: {
-            source: [
-              ['product', '1月1日', '1月2日', '1月3日', '1月4日', '1月5日', '1月6日', '1月7日', '1月8日', '1月9日', '1月10日'],
-              ['a项电压异常', 11.1, 30.4, 165.1, 523.3, 83.8, 1198.7, 615.1, 3.3, 83.8, 9822.7],
-              ['b项电压异常', 15.5, 33.4, 111.1, 423.3, 23.8, 198.7, 6215.1, 13.3, 1.8, 9112.7],
-              ['c项电压异常', 111.1, 130.4, 161.1, 123.3, 813.8, 198.7, 65.1, 13.3, 823.8, 2822.7]
-            ]
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            axisTick: {
-              show: false
-            },
-            splitLine: {
-              show: true,
-              lineStyle: {
-                color: 'rgba(255,255,255,0.2)'
-              }
-            },
-            axisPointer: {
-              show: true
-            },
-            axisLabel: {
-              color: 'rgba(48,252,254,1)'
-            }
-          },
-          yAxis: {
-            type: 'log',
-            gridIndex: 0,
-            axisLabel: {
-              color: 'rgba(124,147,200,1)'
-            },
-            splitLine: {
-              show: true,
-              lineStyle: {
-                color: 'rgba(255,255,255,0.2)'
-              }
-            }
-          },
-          grid: {
-            top: '60'
-          },
-          series: [
-            {
-              type: 'line',
-              smooth: true,
-              seriesLayoutBy: 'row',
-              itemStyle: {
-                color: 'rgba(187,55,63,1)'
-              },
-              lineStyle: {
-                shadowColor: 'rgba(255, 255, 255, 0.5)',
-                shadowBlur: 10
-              }
-            },
-            {
-              type: 'line',
-              smooth: true,
-              seriesLayoutBy: 'row',
-              itemStyle: {
-                color: 'rgba(66,125,138,1)'
-              },
-              lineStyle: {
-                shadowColor: 'rgba(255, 255, 255, 0.5)',
-                shadowBlur: 10
-              }
-            },
-            {
-              type: 'line',
-              smooth: true,
-              seriesLayoutBy: 'row',
-              itemStyle: {
-                color: 'rgba(223,220,49,1)'
-              },
-              lineStyle: {
-                shadowColor: 'rgba(255, 255, 255, 0.5)',
-                shadowBlur: 10
-              }
-            }
-            // {
-            //     type: 'pie',
-            //     id: 'pie',
-            //     radius: '30%',
-            //     center: ['50%', '25%'],
-            //     label: {
-            //         formatter: '{b}: {@2012} ({d}%)'
-            //     },
-            //     encode: {
-            //         itemName: 'product',
-            //         value: '2012',
-            //         tooltip: '2012'
-            //     }
-            // }
+          data: [
+            {name: 'a项电压异常', icon: 'rect'},
+            {name: 'b项电压异常', icon: 'rect'},
+            {name: 'c项电压异常', icon: 'rect'}
           ]
-        }
-        this.myChart.setOption(option)
+        },
+        dataset: {
+          source: [
+            ['product', '1月1日', '1月2日', '1月3日', '1月4日', '1月5日', '1月6日', '1月7日', '1月8日', '1月9日', '1月10日'],
+            ['a项电压异常', 11.1, 30.4, 165.1, 523.3, 83.8, 1198.7, 615.1, 3.3, 83.8, 9822.7],
+            ['b项电压异常', 15.5, 33.4, 111.1, 423.3, 23.8, 198.7, 6215.1, 13.3, 1.8, 9112.7],
+            ['c项电压异常', 111.1, 130.4, 161.1, 123.3, 813.8, 198.7, 65.1, 13.3, 823.8, 2822.7]
+          ]
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          axisTick: {
+            show: false
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(255,255,255,0.2)'
+            }
+          },
+          axisPointer: {
+            show: true
+          },
+          axisLabel: {
+            color: 'rgba(48,252,254,1)'
+          }
+        },
+        yAxis: {
+          type: 'log',
+          gridIndex: 0,
+          axisLabel: {
+            color: 'rgba(124,147,200,1)'
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(255,255,255,0.2)'
+            }
+          }
+        },
+        grid: {
+          top: '60'
+        },
+        series: [
+          {
+            type: 'line',
+            smooth: true,
+            seriesLayoutBy: 'row',
+            itemStyle: {
+              color: 'rgba(187,55,63,1)'
+            },
+            lineStyle: {
+              shadowColor: 'rgba(255, 255, 255, 0.5)',
+              shadowBlur: 10
+            }
+          },
+          {
+            type: 'line',
+            smooth: true,
+            seriesLayoutBy: 'row',
+            itemStyle: {
+              color: 'rgba(66,125,138,1)'
+            },
+            lineStyle: {
+              shadowColor: 'rgba(255, 255, 255, 0.5)',
+              shadowBlur: 10
+            }
+          },
+          {
+            type: 'line',
+            smooth: true,
+            seriesLayoutBy: 'row',
+            itemStyle: {
+              color: 'rgba(223,220,49,1)'
+            },
+            lineStyle: {
+              shadowColor: 'rgba(255, 255, 255, 0.5)',
+              shadowBlur: 10
+            }
+          }
+          // {
+          //     type: 'pie',
+          //     id: 'pie',
+          //     radius: '30%',
+          //     center: ['50%', '25%'],
+          //     label: {
+          //         formatter: '{b}: {@2012} ({d}%)'
+          //     },
+          //     encode: {
+          //         itemName: 'product',
+          //         value: '2012',
+          //         tooltip: '2012'
+          //     }
+          // }
+        ]
       }
+      this.myChart.setOption(option)
     }
   }
+}
 </script>
 
 <style scoped>
