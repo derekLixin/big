@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import VideoJs from 'video'
+import 'video.js/dist/video-js.css'
 
 // 引入echarts
 // import echarts from 'echarts'
@@ -13,7 +13,6 @@ import router from './router'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.use(VideoJs)
 
 /* eslint-disable no-new */
 new Vue({

@@ -91,17 +91,25 @@
             </div>
           </div>
         </div>
-        <div class="shipin_box"></div>
+        <div class="shipin_box">
+          <video :id="id" class="video-js vjs-default-skin vjs-big-play-centered flex-grid" style="width:100%;height:100%;object-fit: fill" muted controls autoplay loop>
+            抱歉, 你的浏览器不支持
+          </video>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import videojs from 'video'
+
 export default {
   name: 'diancan',
   data () {
     return {
+      id: 'tt1',
+      src: 'rtmp://127.0.0.1:1935/live/home',
       rq: '',
       cyc: '',
       cyk: '',
@@ -117,12 +125,71 @@ export default {
       listData: []
     }
   },
-  components: {
-  },
   mounted () {
     this.searchData()
+    this.playVideo('rtmp://127.0.0.1:1935/live/home')
   },
   methods: {
+    exitFullscreen () {
+      const de = document
+      if (de.exitFullscreen) {
+        de.exitFullscreen()
+      } else if (de.mozCancelFullScreen) {
+        de.mozCancelFullScreen()
+      } else if (de.webkitCancelFullScreen) {
+        de.webkitCancelFullScreen()
+      }
+    },
+    enterFullScreen (ele) {
+      if (ele.requestFullscreen) {
+        ele.requestFullscreen()
+      } else if (ele.mozRequestFullScreen) {
+        ele.mozRequestFullScreen()
+      } else if (ele.webkitRequestFullScreen) {
+        ele.webkitRequestFullScreen()
+      }
+    },
+    playVideo (url) {
+      this.player = this.CreatePlayer(this.id)
+      this.player.src({
+        src: url,
+        type: 'rtmp/flv',
+        autoplay: true,
+        isFullscreen: true
+      })
+    },
+    CreatePlayer (id) {
+      const options = {
+        autoplay: true,
+        preload: true,
+        falsh: {
+          swf: './lib/video-js.swf'
+        }
+      }
+      // let self = this
+      return videojs(id, options, function onPlayerReady () {
+        // videojs.log(`Your player${self.index} is ready!`)
+        // // How about an event listener?
+        // this.on('ended', () => {
+        //   videojs.log('Awww...over so soon?!')
+        // })
+        // this.on('error', () => {
+        //   console.log('error')
+        // })
+        // this.on('abort', () => {
+        //   console.log('abort')
+        // })
+        // this.on('emptied', () => {
+        //   console.log('emptied')
+        // })
+        // this.on('loadstart', () => {
+        //   self.player.play()
+        // })
+        // this.on('stalled ', () => {
+        //   console.log('stalled')
+        // })
+      })
+    },
     go2Page (link) {
       this.$router.push({
         path: link
