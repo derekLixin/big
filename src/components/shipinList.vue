@@ -6,10 +6,27 @@
     <div class="shipin_box">
       <div class="shipin_left">
         <el-row>
-          <el-col v-for="(item, index) in shipinData" :key="index" :span="12" class="shipin_item">
-            <video :id="'video'+index" class="video-js vjs-default-skin vjs-big-play-centered flex-grid" style="width:100%;height:100%;object-fit: fill" muted controls autoplay loop>
-              抱歉, 你的浏览器不支持
-            </video>
+          <el-col :span="6" class="shipin_item">
+          </el-col>
+          <el-col :span="6" class="shipin_item">
+          </el-col>
+          <el-col :span="6" class="shipin_item">
+          </el-col>
+          <el-col :span="6" class="shipin_item">
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-row>
+              <el-col :span="24" class="shipin_item">
+              </el-col>
+              <el-col :span="24" class="shipin_item">
+              </el-col>
+              <el-col :span="24" class="shipin_item">
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :span="18" class="shipin_item1">
           </el-col>
         </el-row>
       </div>
@@ -85,45 +102,10 @@
 </template>
 
 <script>
-import videojs from 'video'
-
 export default {
   name: 'shipin',
   data () {
     return {
-      shipinData: [{
-        url: 'rtmp://127.0.0.1:1935/live/home?t=1'
-      }, {
-        url: 'rtmp://127.0.0.1:1935/live/home?t=2'
-      }, {
-        url: 'rtmp://127.0.0.1:1935/live/home?t=3'
-      }, {
-        url: 'rtmp://127.0.0.1:1935/live/home?t=4'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=5'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=6'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=7'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=8'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=9'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=10'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=11'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=12'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=13'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=14'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=15'
-      // }, {
-      //   url: 'rtmp://127.0.0.1:1935/live/home?t=16'
-      }],
       listData: [],
       videoSelect: '',
       videos: [{
@@ -147,49 +129,8 @@ export default {
   components: {
   },
   mounted () {
-    this.shipinData.forEach((item, index) => {
-      this.playVideo(item.url, 'video' + index)
-    })
   },
   methods: {
-    exitFullscreen () {
-      const de = document
-      if (de.exitFullscreen) {
-        de.exitFullscreen()
-      } else if (de.mozCancelFullScreen) {
-        de.mozCancelFullScreen()
-      } else if (de.webkitCancelFullScreen) {
-        de.webkitCancelFullScreen()
-      }
-    },
-    enterFullScreen (ele) {
-      if (ele.requestFullscreen) {
-        ele.requestFullscreen()
-      } else if (ele.mozRequestFullScreen) {
-        ele.mozRequestFullScreen()
-      } else if (ele.webkitRequestFullScreen) {
-        ele.webkitRequestFullScreen()
-      }
-    },
-    playVideo (url, id) {
-      const player = this.CreatePlayer(id)
-      player.src({
-        src: url,
-        type: 'rtmp/flv',
-        autoplay: false,
-        isFullscreen: false
-      })
-    },
-    CreatePlayer (id) {
-      const options = {
-        autoplay: false,
-        preload: true,
-        falsh: {
-          swf: './lib/video-js.swf'
-        }
-      }
-      return videojs(id, options, function onPlayerReady () {})
-    },
     go2Page (link) {
       this.$router.push({
         path: link
@@ -270,10 +211,8 @@ export default {
   }
   .shipin_item{
     background:rgba(255,255,255,0.2);
-    /*height:210px;*/
-    /*width:280px;*/
-    height:420px;
-    width:560px;
+    height:210px;
+    width:280px;
     border:1px solid #ccc;
     margin-right:-1px;
     margin-top:-1px;
