@@ -184,7 +184,7 @@ export default {
       const options = {
         autoplay: false,
         preload: true,
-        falsh: {
+        flash: {
           swf: './lib/video-js.swf'
         }
       }
